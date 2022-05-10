@@ -16,6 +16,8 @@ class MainPage(webapp2.RequestHandler):
         data = urllib.urlopen(url).read()
         data = json.loads(data)
         print(data)
+        if(data['cod']=='404'):
+            return self.response.out.write("Invalid City")
         weather = data['weather'][0]['description']
         weather = weather.capitalize()
         temp = data['main']['temp']
@@ -34,4 +36,3 @@ class MainPage(webapp2.RequestHandler):
         
         
 app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
-# http://openweathermap.org/img/wn/10d@2x.png
